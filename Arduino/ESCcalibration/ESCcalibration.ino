@@ -68,6 +68,12 @@ void loop() {
                       delay(1000);
                       test();
             break;
+            case 51 : Serial.println("Sending 1200 throttle");
+                      motA.writeMicroseconds(1200);
+                      motB.writeMicroseconds(1200);
+                      motC.writeMicroseconds(1200);
+                      motD.writeMicroseconds(1200);
+            break;
         }
     }
     
@@ -106,5 +112,7 @@ void displayInstructions()
     Serial.println("READY - PLEASE SEND INSTRUCTIONS AS FOLLOWING :");
     Serial.println("\t0 : Send min throttle");
     Serial.println("\t1 : Send max throttle");
-    Serial.println("\t2 : Run test function\n");
+    Serial.println("\t2 : Run test function");
+    Serial.println("\t3 : Send 1200 throttle");
+    
 }
