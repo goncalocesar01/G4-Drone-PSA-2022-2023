@@ -179,10 +179,10 @@ void loop() {
   pid_Thrust = pid_p3 + pid_i3 + pid_d3;
 
 // controlar acelerador
-  gas1 = 1300 + JZ + pid_yaw + pid_pitch + pid_roll;   // right front
-  gas2 = 1300 + JZ - pid_yaw + pid_pitch - pid_roll;   // right back
-  gas3 = 1300 + JZ - pid_yaw - pid_pitch + pid_roll;   // left back
-  gas4 = 1300 + JZ + pid_yaw - pid_pitch - pid_roll;   // left front
+  gas1 = 1300 + pid_Thrust + pid_yaw + pid_pitch + pid_roll;   // right front
+  gas2 = 1300 + pid_Thrust - pid_yaw + pid_pitch - pid_roll;   // right back
+  gas3 = 1300 + pid_Thrust - pid_yaw - pid_pitch + pid_roll;   // left back
+  gas4 = 1300 + pid_Thrust + pid_yaw - pid_pitch - pid_roll;   // left front
 
 // fixar limites de acelerador
   if (gas1 < 1000) {gas1 = 1000;}
