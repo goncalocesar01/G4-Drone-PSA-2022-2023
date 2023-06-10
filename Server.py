@@ -14,7 +14,7 @@ def main():
 
     # Listen for incoming connections-----------------------------------------------------------------------------------
     sock.listen(1)
-    #serial2=serial.Serial('COM4',115200)
+    serial2=serial.Serial('COM4',115200)
     connection, client_address = sock.accept()
     while True:
         # Wait for axis connection
@@ -35,12 +35,12 @@ def main():
        
         #print(JLX,JLY,JRX,JZ,A)
         commands=f"{JLX},{JLY},{JRX},{JZ},{A}\n"
-        #serial2.write(commands.encode())
+        serial2.write(commands.encode())
         time.sleep(0.1)    
-        #if serial2.in_waiting > 0:
+        if serial2.in_waiting > 0:
             # Ler a mensagem da porta serial
-        #    Altura = serial2.readline().decode().rstrip()
-        Altura="20"
+            Altura = serial2.readline().decode().rstrip()
+        
                # Exibir a mensagem
         connection.send(Altura.encode())
 
