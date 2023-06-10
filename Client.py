@@ -53,7 +53,7 @@ def main():
         data=sock.recv(5000)
         Altura=data.decode()
         
-        print("altura =" + str(Altura) + "m")
+        print("altura = " + str(Altura) + "m")
         
     # ---------------------------------------------------------
     # Termination
