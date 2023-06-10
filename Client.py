@@ -10,9 +10,9 @@ def main():
     # Create a TCP/IP socket------------------------------------------------------------------------------------------------
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # Connect the socket to the port where the server is listening----------------------------------------------------------
-    server_address = ('192.168.0.11', 10000)
+    server_address = ('192.168.1.9', 10000)
     print('connecting to {} port {}'.format(*server_address))
-    sock.connect(server_address)
+    #sock.connect(server_address)
     pygame.init()
     pygame.joystick.init()
     # Count Joysticks
@@ -29,22 +29,29 @@ def main():
     # ---------------------------------------------------------
     # Execution in Cycle
     # ---------------------------------------------------------
-
+    sock.connect(server_address)
     while True:
+        
         JLX = int(joystick.get_axis(0)*255)
         JLY = -int(joystick.get_axis(1)*255)
         JRX = int(joystick.get_axis(2)*255)
         JZ = int((joystick.get_axis(5)-joystick.get_axis(4))/2*255)
         A = joystick.get_button(0)
         pygame.event.pump()
-        
-        message=json.dumps({"JLX":JLX,"JLY":JLY,"JRX":JRX,"JZ":JZ,"A":A})+'\n'
+        message= {
+            'JLX': JLX,
+            'JLY': JLY,
+            'JRX': JRX,
+            'JZ': JZ,
+            'A': A
+        }
+        message=json.dumps(message)
+ 
         #print(message)
-        sock.send(message.encode())
-        time.sleep(0.001)
-        data=sock.recv(1024)
-        json_data=json.loads(data.decode())
-        Altura=json_data.get("Altura")
+        sock.sendall(message.encode())
+        time.sleep(0.1)
+        data=sock.recv(5000)
+        Altura=data.decode()
         
         print("altura =" + str(Altura) + "m")
         
